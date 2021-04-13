@@ -12,4 +12,4 @@ Then run
 > scala Enigma -decrypt RotorPositions(ex: I,IV,III) notchPositions(ex: 0,25) StartPositions(ex: A,E,P) optional:[file]
 ```
 
-Where RotorPositions is the placement of rotors [I-V] in spots 1..3, the notch postion is essentially the inner ring placement on the real machines (at what point will the left rotor shift the right one), and start postion is the start postion of the rotors. You can either provide a filename as the last argument or leave it blank in which case you will be prompted to enter text. Two flags can be used, either `-decrypt` or `-encrypt`, even though they are identical in practice.
+Where `RotorPositions` is the placement of rotors [I-V] in spots 1..3, the `notchPostion` is essentially the inner ring placement on the real machines (at what point will the left rotor shift the right one), and `startPostion` is the start postion of the rotors. You can either provide a filename as the last argument or leave it blank in which case you will be prompted to enter text. Two flags can be used, either `-decrypt` or `-encrypt`, even though they are identical in practice.
