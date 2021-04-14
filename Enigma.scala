@@ -11,17 +11,21 @@ object Enigma{
   /** Transforms a character [A-Z] to a number [0-25] */
   def toNum(char: Char) = char.toInt - 65
   
-  /** Encrypts/Decrypts the text according to the settings given.*/
+  /** Encrypts/Decrypts the text according to the given settings.*/
   def crypt(rotors: Array[Int], positions: Array[Int], notches: Array[Int], text: Array[Char]): Array[Char] = {
+    // set the rotor position and nitch
     val rotor1 = Rotor(rotors(0), notches(0), positions(0))
     val rotor2 = Rotor(rotors(1), notches(1), positions(1))
     val rotor3 = Rotor(rotors(2), 0, positions(2))
+    //initialise output array
     val out = new Array[Char](text.length)
     var i = 0
     while(i < text.length){
       if(rotor1.rotate){
+        // rotates 2nd or third rotor depending on the notch position
         if(rotor2.rotate) rotor3.rotate
       }
+      // split result for readibility
       val intermediate = rotor3.output1(rotor2.output1(rotor1.output1(toNum(text(i)))))
       out(i) = (rotor1.output2(rotor2.output2(rotor3.output2(Reflector.output(intermediate)))) + 65).toChar
       i += 1
@@ -31,19 +35,20 @@ object Enigma{
 
 
   def main(args: Array[String]) = {
-    // string to print if error occurs
+    // Error string to print
     val errString = 
       s"${Console.GREEN}${BOLD}Usage: scala Enigma -encrypt RotorPositions(ex: I,IV,III) notchPositions(ex: 0,25) StartPositions(ex: A,E,P) optional:[file]\n"+
       s"${Console.GREEN}     | scala Enigma -decrypt RotorPositions(ex: I,IV,III) notchPositions(ex: 0,25) StartPositions(ex: A,E,P) optional:[file]\n"
 
 
     /** Get the plaintext, either from the file whose name appears in position
-    pos, or from standard input */
+    4, or from standard input */
     def getInput(flag : String)= {
       val input = if(args.length>= 5) readFile(args(4)) else {
         print("Input your " + flag + " : ")
         readStdin()
       }
+      // Converts input to array of capital chars (deletes all other symbols)
       val ans = Parser.convertToUpper(input.mkString)
       ans
     }
@@ -51,7 +56,7 @@ object Enigma{
     /** Check there are at least n arguments */
     def checkNumArgs(n: Int) = if(args.length<n){println(errString); sys.exit()}
 
-    /** Parse the arguments, and calls the correct functions */
+    /** Parses the arguments, and calls the correct functions */
     checkNumArgs(4)
 
     val command = args(0)
@@ -70,7 +75,7 @@ object Enigma{
       }
       
     }
-    // Incorrect flag or number of arguments
+    // Incorrect flag
     else println(errString)
   }
 }

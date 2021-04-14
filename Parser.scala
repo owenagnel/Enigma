@@ -13,14 +13,16 @@ object Parser{
     converter(roman)
   }
 
-  /** Returns an Array containing the rotor positions in order, or an exception */
+  /** Returns an Array containing the rotor positions in coorect order, or an exception */
   def rotorParse(str: String): Array[Int] = {
     val ans = new Array[Int](3)
     if(rotorCheck(str)){
       val rotorArray = str.split(",")
+      //converts the roman numeral strings to ints
       for(i <- 0 until 3){
         ans(i) = convertRoman(rotorArray(i))
       }
+      //checks for duplicate rotors
       if(ans.length != ans.distinct.length){
         throw new SemanticException("Two of the same rotors are input!")
       }
@@ -65,7 +67,8 @@ object Parser{
   def startPosParse(str: String): Array[Int] = {
     val ans = new Array[Int](3)
     if(startPosCheck(str)){
-    val startPosArray = str.toArray.filter(_ != ',')
+    // Necessary to have an array of chars.
+    val startPosArray = str.toArray.filter(_!=',')
     for(i <- 0 until 3){
       ans(i) = startPosArray(i).toInt - 65
     }
@@ -75,7 +78,7 @@ object Parser{
     ans
   }
 
-  /** Converts the input string into a sequence of capital letters removing space and all other symbols. */
+  /** Converts the input string into a sequence of capital letters removing spaces and all other symbols. */
   def convertToUpper(str: String): Array[Char] = {
     val inputArray = str.toUpperCase.toArray
     val ans = inputArray.filter((x: Char) => x.toInt >= 65 && x.toInt <= 90)
