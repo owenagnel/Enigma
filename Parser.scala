@@ -2,13 +2,13 @@ import scala.util.matching.Regex
 
 object Parser{
   /** Does a RegEx check to make sure that the rotor input is of the correct form */
-  def rotorCheck(str: String): Boolean = {
+  private def rotorCheck(str: String): Boolean = {
     val rotorPattern = "\\A(I,|II,|III,|IV,|V,){2}(I\\z|II\\z|III\\z|IV\\z|V\\z){1}".r
     rotorPattern.matches(str)
   }
 
   /** Converts the roman numerals of the rotors to ints*/
-  def convertRoman(roman: String): Int = {
+  private def convertRoman(roman: String): Int = {
     val converter = Map("I" -> 0, "II" -> 1, "III" -> 2, "IV" -> 3, "V" -> 4)
     converter(roman)
   }
@@ -33,7 +33,7 @@ object Parser{
   }
 
   /** Checks that the notch positions have correct syntax*/
-  def notchCheck(str: String): Boolean = {
+  private def notchCheck(str: String): Boolean = {
     val notchPattern = "\\A(\\d){1,2},(\\d){1,2}\\z".r
     notchPattern.matches(str)
   }
