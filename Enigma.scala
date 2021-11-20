@@ -13,10 +13,10 @@ object Enigma{
   
   /** Encrypts/Decrypts the text according to the given settings.*/
   def crypt(rotors: Array[Int], positions: Array[Int], notches: Array[Int], text: Array[Char]): Array[Char] = {
-    // set the rotor position and nitch
-    val rotor1 = Rotor(rotors(0), notches(0), positions(0))
+    // set the rotor position and notch
+    val rotor1 = Rotor(rotors(2), notches(0), positions(0))
     val rotor2 = Rotor(rotors(1), notches(1), positions(1))
-    val rotor3 = Rotor(rotors(2), 0, positions(2))
+    val rotor3 = Rotor(rotors(0), 0, positions(2))
     //initialise output array
     val out = new Array[Char](text.length)
     var i = 0
